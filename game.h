@@ -303,9 +303,51 @@ bool Game::canGangMoveTo(int newRow, int newCol) {
 }
 
 bool Game::canYangMove() {
-
+    // check whether Yang can move
+    int curRow = Yang.getRow();
+    int curCol = Yang.getRow();
+    if(canYangMoveTo(curRow+1, curCol+2)) {
+        return true;
+    }else if(canYangMoveTo(curRow+1, curCol-2)){
+        return true;
+    }else if(canYangMoveTo(curRow-1, curCol+2)){
+        return true;
+    }else if(canYangMoveTo(curRow-1, curCol-2)){
+        return true;
+    }else if(canYangMoveTo(curRow+2, curCol+1)){
+        return true;
+    }else if(canYangMoveTo(curRow+2, curCol-1)){
+        return true;
+    }else if(canYangMoveTo(curRow-2, curCol+1)){
+        return true;
+    }else if(canYangMoveTo(curRow-2, curCol-1)){
+        return true;
+    }else {
+        return false;
+    }
 }
 
 bool Game::canGangMove() {
-
+    // check whether Gang can move
+    int curRow = Gang.getRow();
+    int curCol = Gang.getRow();
+    if(canGangMoveTo(curRow+1, curCol+1)) {
+        return true;
+    }else if(canGangMoveTo(curRow+1, curCol)){
+        return true;
+    }else if(canGangMoveTo(curRow+1, curCol-1)){
+        return true;
+    }else if(canGangMoveTo(curRow-1, curCol+1)){
+        return true;
+    }else if(canGangMoveTo(curRow-1, curCol)){
+        return true;
+    }else if(canGangMoveTo(curRow-1, curCol-1)){
+        return true;
+    }else if(canGangMoveTo(curRow, curCol+1)){
+        return true;
+    }else if(canGangMoveTo(curRow, curCol-1)){
+        return true;
+    }else {
+        return false;
+    }
 }
