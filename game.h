@@ -15,6 +15,10 @@ public:
     bool move(int newRow, int newCol);
     void bomb(int bombType, int depth);
     bool checkEndCondition();
+    bool canYangMove();
+    bool canYangMoveTo(int, int);
+    bool canGangMove();
+    bool canGangMoveTo(int, int);
 
     // Mutators (setters)
     void setTurn(int nextTurn);
@@ -208,4 +212,100 @@ void Game::printBombMap(){
     return;
 }
 
+bool Game::canYangMoveTo(int newRow, int newCol) {
+    // check whether Yang can move to block (newRow, newCol)
 
+    // check movement
+    int rowDiff = newRow - Yang.getRow();
+    int colDiff = newCol - Yang.getCol();
+    switch(rowDiff) {
+        case 1:
+        case -1:
+            switch(colDiff) {
+                case 2:
+                case -2:
+                    break;
+                default:
+                    return false;
+            }
+            break;
+        case 2:
+        case -2:
+            switch(colDiff) {
+                case 1:
+                case -1:
+                    break;
+                default:
+                    return false;
+            }
+            break;
+        default:
+            return false;
+    }
+    // check within
+    if(!mainGameBoard.isWithin(newRow, newCol)) {
+        return false;
+    }
+    // check height
+    if(mainGameBoard.getBlockArray()[newRow][newCol].getHeight() < 1) {
+        return false;
+    }
+    // check Gang
+    if(newRow == Gang.getRow() && newCol == Gang.getCol()) {
+        return false;
+    }
+    return true;
+}
+
+bool Game::canGangMoveTo(int newRow, int newCol) {
+    // check whether Gang can move to block (newRow, newCol)
+
+    // check movement
+    int rowDiff = newRow - Gang.getRow();
+    int colDiff = newCol - Gang.getCol();
+    switch(rowDiff) {
+        case 1:
+        case -1:
+            switch(colDiff) {
+                case 1:
+                case -1:
+                case 0:
+                    break;
+                default:
+                    return false;
+            }
+            break;
+        case 0:
+            switch(colDiff) {
+                case 1:
+                case -1:
+                    break;
+                default:
+                    return false;
+            }
+            break;
+        default:
+            return false;
+    }
+    // check within
+    if(!mainGameBoard.isWithin(newRow, newCol)) {
+        return false;
+    }
+    // check height
+    if(mainGameBoard.getBlockArray()[newRow][newCol].getHeight() < 1) {
+        return false;
+    }
+    // check Yang
+    if(newRow == Yang.getRow() && newCol == Yang.getCol()) {
+        return false;
+    }
+    return true;
+}
+
+bool Game::canYangMove() {
+
+}
+
+bool Game::canGangMove() {
+
+}

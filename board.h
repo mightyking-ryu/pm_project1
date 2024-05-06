@@ -14,6 +14,8 @@ public:
     void setBombMap(int curRow, int curCol, int value);
     void setBlockArray(int curRow, int curCol, int value); 
 
+    bool isWithin(int row, int col);
+
 private:
     int** bombMap;
     Block** blockArray;
@@ -58,4 +60,13 @@ void Board::setBlockArray(int curRow, int curCol, int value) {
     // change the blockarray values blockArray[curRow][curCol] to value
     blockArray[curRow][curCol].setHeight(value);
     return;
+}
+
+bool Board::isWithin(int row, int col) {
+    // check whether the point is within the board
+    if((0 <= row) && (row < boardSize) && (0 <= col) && (col < boardSize)) {
+        return true;
+    } else {
+        return false;
+    }
 }
