@@ -477,6 +477,13 @@ bool Game::canGangMove() {
 }
 
 void Game::bomb0(int curRow, int curCol, int depth) {
+    for(int i = curRow-depth+1; i < curRow+depth; i++) {
+        for(int j = curCol-depth+1; j < curCol+depth; j++) {
+            if (mainGameBoard.isWithin(i, j)) {
+                mainGameBoard.getBombMap()[i][j] = depth;
+            }
+        }
+    }
     return;
 }
 void Game::bomb1(int curRow, int curCol, int depth) {
