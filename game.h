@@ -521,5 +521,21 @@ void Game::bomb2(int curRow, int curCol, int depth) {
     }
 }
 void Game::bomb3(int curRow, int curCol, int depth) {
-    return;
+    if (depth <= 1) {
+        bomb0(curRow+1, curCol, 1);
+        bomb0(curRow-1, curCol, 1);
+        bomb0(curRow, curCol+1, 1);
+        bomb0(curRow, curCol-1, 1);
+        return;
+    } else {
+        int diff = 1;
+        for(int i = 0; i < depth-1; i++) {
+            diff *= 3;
+        }
+        bomb3(curRow+diff, curCol, depth-1);
+        bomb3(curRow-diff, curCol, depth-1);
+        bomb3(curRow, curCol+diff, depth-1);
+        bomb3(curRow, curCol-diff, depth-1);
+        return;
+    }
 }
