@@ -502,7 +502,23 @@ void Game::bomb1(int curRow, int curCol, int depth) {
     return;
 }
 void Game::bomb2(int curRow, int curCol, int depth) {
-    return;
+    if (depth <= 1) {
+        bomb0(curRow, curCol, depth);
+        return;
+    } else {
+        if (mainGameBoard.isWithin(curRow, curCol)) {
+            mainGameBoard.getBombMap()[curRow][curCol] = depth;
+        }
+        int diff = 1;
+        for(int i = 0; i < depth-2; i++) {
+            diff *= 3;
+        }
+        bomb2(curRow+diff, curCol+diff, depth-1);
+        bomb2(curRow+diff, curCol-diff, depth-1);
+        bomb2(curRow-diff, curCol+diff, depth-1);
+        bomb2(curRow-diff, curCol-diff, depth-1);
+        return;
+    }
 }
 void Game::bomb3(int curRow, int curCol, int depth) {
     return;
