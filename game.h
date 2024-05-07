@@ -178,6 +178,44 @@ bool Game::checkEndCondition(){
     1: Gang win
     */
 
+    bool isYangEnd = false;
+    bool isGangEnd = false;
+
+    if ((mainGameBoard.getBlockArray()[Yang.getRow()][Yang.getCol()].getHeight() < 1) || (!canYangMove())) {
+        isYangEnd = true;
+    }
+    if ((mainGameBoard.getBlockArray()[Gang.getRow()][Gang.getCol()].getHeight() < 1) || (!canGangMove())) {
+        isGangEnd = true;
+    }
+    if (turn == 20) {
+        isYangEnd = true;
+        isGangEnd = true;
+    }
+
+    if (isYangEnd && isGangEnd) {
+        // compare score
+        int yangScore = Yang.getScore();
+        int gangScore = Gang.getScore();
+        if (yangScore > gangScore) {
+            winner = 0;
+        } else if (yangScore < gangScore) {
+            winner = 1;
+        } else {
+            winner = -1;
+        }
+        return true;
+    } else if (isYangEnd && !isGangEnd) {
+        // Gang win
+        winner = 1;
+        return true;
+    } else if (!isYangEnd && isGangEnd) {
+        // Yang win
+        winner = 0;
+        return true;
+    } else {
+        // not ended
+        return false;
+    }
 }
 
 void Game::bomb(int bombType, int depth){
