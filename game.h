@@ -138,7 +138,26 @@ bool Game::move(int newRow, int newCol){
     else, move the Player and set to the newRow, newCol. Then return true
     
     */
-    
+    if (turn % 2 == 0) {
+        // Yang turn
+        if (canYangMoveTo(newRow, newCol)) {
+            Yang.setRow(newRow);
+            Yang.setCol(newCol);
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        // Gang turn
+        if (canGangMoveTo(newRow, newCol)) {
+            Gang.setRow(newRow);
+            Gang.setCol(newCol);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
 
 bool Game::checkEndCondition(){
