@@ -429,7 +429,7 @@ bool Game::canGangMoveTo(int newRow, int newCol) {
 bool Game::canYangMove() {
     // check whether Yang can move
     int curRow = Yang.getRow();
-    int curCol = Yang.getRow();
+    int curCol = Yang.getCol();
     if(canYangMoveTo(curRow+1, curCol+2)) {
         return true;
     }else if(canYangMoveTo(curRow+1, curCol-2)){
@@ -454,7 +454,7 @@ bool Game::canYangMove() {
 bool Game::canGangMove() {
     // check whether Gang can move
     int curRow = Gang.getRow();
-    int curCol = Gang.getRow();
+    int curCol = Gang.getCol();
     if(canGangMoveTo(curRow+1, curCol+1)) {
         return true;
     }else if(canGangMoveTo(curRow+1, curCol)){
