@@ -19,6 +19,10 @@ public:
     bool canYangMoveTo(int, int);
     bool canGangMove();
     bool canGangMoveTo(int, int);
+    void bomb0(int, int, int);
+    void bomb1(int, int, int);
+    void bomb2(int, int, int);
+    void bomb3(int, int, int);
 
     // Mutators (setters)
     void setTurn(int nextTurn);
@@ -236,6 +240,69 @@ void Game::bomb(int bombType, int depth){
     (Do nothing. It will be regarded as passing the turn)
     */
 
+    int curBoardSize = mainGameBoard.getBoardSize();
+    int curRow;
+    int curCol;
+    if (turn % 2 == 0) {
+        curRow = Yang.getRow();
+        curCol = Yang.getCol();
+    } else {
+        curRow = Gang.getRow();
+        curCol = Gang.getCol();
+    }
+
+    // initialize bombMap to 0
+    for(int i = 0; i < curBoardSize; i++) {
+        for(int j = 0; j < curBoardSize; j++) {
+            mainGameBoard.setBombMap(i, j, 0);
+        }
+    }
+    // update bombMap
+    if (depth <= 0) {
+        return;
+    } else {
+        switch(bombType) {
+            case 0:
+                bomb0(curRow, curCol, depth);
+                break;
+            case 1:
+                bomb1(curRow, curCol, depth);
+                break;
+            case 2:
+                bomb2(curRow, curCol, depth);
+                break;
+            case 3:
+                bomb3(curRow, curCol, depth);
+                break;
+            default:
+                return;
+        }
+    }
+    // update block height & update player score
+    int score = 0;
+    for(int i = 0; i < curBoardSize; i++) {
+        for(int j = 0; j < curBoardSize; j++) {
+            int bombed = mainGameBoard.getBombMap()[i][j];
+            if (bombed == 0) {
+                continue;
+            } else {
+                int curHeight = mainGameBoard.getBlockArray()[i][j].getHeight();
+                if (curHeight >= bombed) {
+                    mainGameBoard.getBlockArray()[i][j].setHeight(curHeight - bombed);
+                    score += bombed;
+                } else {
+                    mainGameBoard.getBlockArray()[i][j].setHeight(0);
+                    score += curHeight;
+                }
+            }
+        }
+    }
+    if (turn % 2 == 0) {
+        Yang.setScore(Yang.getScore() + score);
+    } else {
+        Gang.setScore(Gang.getScore() + score);
+    }
+    return;
 }
 
 void Game::printBombMap(){
@@ -407,4 +474,17 @@ bool Game::canGangMove() {
     }else {
         return false;
     }
+}
+
+void Game::bomb0(int curRow, int curCol, int depth) {
+    return;
+}
+void Game::bomb1(int curRow, int curCol, int depth) {
+    return;
+}
+void Game::bomb2(int curRow, int curCol, int depth) {
+    return;
+}
+void Game::bomb3(int curRow, int curCol, int depth) {
+    return;
 }
