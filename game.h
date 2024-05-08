@@ -191,12 +191,16 @@ bool Game::checkEndCondition(){
     if ((mainGameBoard.getBlockArray()[Gang.getRow()][Gang.getCol()].getHeight() < 1) || (!canGangMove())) {
         isGangEnd = true;
     }
-    if (turn == 20) {
-        isYangEnd = true;
-        isGangEnd = true;
-    }
 
-    if (isYangEnd && isGangEnd) {
+    if (isYangEnd && !isGangEnd) {
+        // Gang win
+        winner = 1;
+        return true;
+    } else if (!isYangEnd && isGangEnd) {
+        // Yang win
+        winner = 0;
+        return true;
+    } else if ((isYangEnd && isGangEnd) || (turn == MAX_TURN)) {
         // compare score
         int yangScore = Yang.getScore();
         int gangScore = Gang.getScore();
@@ -207,14 +211,6 @@ bool Game::checkEndCondition(){
         } else {
             winner = -1;
         }
-        return true;
-    } else if (isYangEnd && !isGangEnd) {
-        // Gang win
-        winner = 1;
-        return true;
-    } else if (!isYangEnd && isGangEnd) {
-        // Yang win
-        winner = 0;
         return true;
     } else {
         // not ended
